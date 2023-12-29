@@ -1,0 +1,272 @@
+SOV_balance_of_power_category = {
+	icon = GFX_decision_category_power_struggle
+	
+	allowed = {
+		original_tag = SOV
+	}
+	
+	priority = 90
+	
+	visible = {
+		
+	}
+}
+SOV_russian_reunification = { #SKELETON BUILD FOR TESTING
+	allowed = {
+		original_tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+		has_global_flag = russian_civil_war_begun
+		NOT = { russia_rework_trigger = yes }
+	}
+}
+
+SOV_russian_ambitions = {
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+		always = yes
+		NOT = { russia_rework_trigger = yes }
+	}
+}
+
+SOV_reconquer_russia = {
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+		has_country_flag = can_retake_russia
+		NOT = { russia_rework_trigger = yes }
+	}
+		
+}
+
+SOV_supplying_donbass = {
+	allowed = {
+		tag = SOV
+		OR = {
+			country_exists = DON
+			country_exists = LHK
+			country_exists = NOV
+			country_exists = ODS
+		}
+
+	}
+	visible = {
+		OR = {
+			has_start_date > 2022.1.1
+			has_country_flag = SOV_supplying_donbass_unlocked
+		}
+		NOT = { russia_rework_trigger = yes }
+	}
+		
+}
+
+SOV_bombing_ukraine = {
+	allowed = {
+		tag = SOV
+
+	}
+	visible = {
+		has_country_flag = can_bomb_ukraine_SOV
+		UKR = {
+			has_war_with = SOV
+		}
+		NOT = { russia_rework_trigger = yes }
+	}
+		
+}
+
+SOV_funding_transnistria= {
+
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = yes
+	scripted_gui = SOV_funding_transnistria_gui
+	visible = {
+		country_exists = TRZ
+		NOT = { russia_rework_trigger = yes }
+	}
+		
+}
+
+SOV_smo = {
+	priority = 999
+	allowed = {
+		OR={
+			tag = SOV
+			tag = UKR
+			tag = DON
+			tag = LHK
+			tag = KHK
+			tag = ODS
+			tag = NOV
+		}
+	}
+	visible_when_empty = yes
+	visible = {
+		has_global_flag = russia_ukraine_war
+	}
+}
+
+SOV_communist_coup = {
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = yes
+	visible = {
+		has_country_flag = coup_has_started
+		NOT = { russia_rework_trigger = yes }
+	}
+		
+}
+
+SOV_vaccines = {
+	allowed = {
+		tag = SOV
+
+		
+	}
+	visible_when_empty = yes
+	visible = {
+		has_completed_focus = SOV_create_vaccine
+		has_start_date < 2015.1.1.1
+		NOT = { russia_rework_trigger = yes }
+	}
+	on_map_area = {
+		target_array = SOV.core_states
+		target_trigger = {
+			FROM = {
+				AND = {
+					is_owned_by = SOV
+					NOT = { has_state_flag = vaccine_here_done }
+					NOT = { has_state_flag = is_funni_no_go_round_state }
+				}
+				
+			}
+		}
+		state = target
+		name = tate_targeted2_decision
+		zoom = 650
+	}
+		
+}
+
+
+SOV_putins_opposition = {
+	scripted_gui = SOV_putins_opposition_gui
+	allowed = {
+		tag = sov
+	}
+	visible_when_empty = yes
+	visible = {
+		has_government = eastern_conservative
+		NOT = { has_country_flag = SOV_Putin_alive }
+		NOT = { russia_rework_trigger = yes }
+	}
+		
+}
+
+SOV_referendum_decisions = {
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+		AND = {
+			has_offensive_war_with = UKR
+			has_country_flag = russia_can_hold_refs
+			NOT = { russia_rework_trigger = yes }
+		}
+		
+	}	
+}
+
+SOV_the_media = {
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = yes
+	visible = {
+		russia_rework_trigger = yes
+		has_dynamic_modifier = { modifier = SOV_effects_from_media }
+	}	
+	
+	scripted_gui = SOV_media_gui
+}
+
+SOV_referendum_decisions_2 = {
+	allowed = {
+		tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+		russia_rework_trigger = yes
+		OR={
+			has_completed_focus = SOV_great_victors_2
+			has_completed_focus = SOV_novorossiya_at_hand_2
+			has_completed_focus = SOV_destroy_ukraine
+			has_completed_focus = SOV_annex_donbass
+			has_completed_focus = SOV_expanding_our_borders
+		}
+	}	
+}
+
+SOV_army_reform_decisions = {
+	allowed = {
+		tag = SOV
+		has_start_date < 2022.1.1
+	}
+	visible_when_empty = no
+	visible = {
+		russia_rework_trigger = yes
+		OR={
+			has_completed_focus = SOV_army_modernisation
+			has_country_flag = SOV_army_reform_decisions_flag
+		}
+	}	
+}
+
+SOV_parliament_gui_decision_category = {
+	icon = generic_political_actions
+	priority = 99
+	allowed = {
+		original_tag = SOV
+	}
+	visible_when_empty = yes
+	visible = {
+		has_global_flag = SOV_parliament_gui_active_flag
+	}
+	scripted_gui = russia_parliament_gui
+}
+
+SOV_securing_the_federation = {
+	allowed = {
+		original_tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+		has_completed_focus = SOV_russia_united_QM
+	}	
+}
+
+SOV_foreign_subversive_activities = {
+	priority = 99
+
+	icon = generic_foreign_policy
+
+	allowed = {
+		original_tag = SOV
+	}
+	visible_when_empty = no
+	visible = {
+#		alexander_bortnikov_is_leader = yes
+		is_subject = no
+		has_country_flag = SOV_can_do_foreign_subversive_activities_flag
+	}
+}
